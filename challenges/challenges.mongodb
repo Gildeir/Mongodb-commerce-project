@@ -209,6 +209,10 @@ db.produtos.find({}, {
 });
 
 
+db.produtos.countDocuments({
+  ingredientes: {$size: 4},
+});
+
 
 // display
-// db.produtos.find();
+db.produtos.find();
