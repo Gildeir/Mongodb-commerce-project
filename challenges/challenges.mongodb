@@ -218,18 +218,34 @@ db.produtos.countDocuments({
   ingredientes: {$size: 4},
 });
 
-db.produtos.createIndex(
-  { descricao: "text" },
-  { default_language: "portuguese" },
-);
-
-db.produtos.countDocuments({
-  $text: {
-    $search: "frango hamburger" },
+db.produtos.createIndex({
+  descricao: "text",
+}, {
+  default_language: "portuguese",
 });
 
+db.produtos.find({
+  $text: {
+    $search: "frango hamburguer",
+  },
+}).count();
 
+db.produtos.find({
+  $text: {
+    $search: "feito com",
+  },
+}).count();
 
+db.produtos.updateMany({}, {
+  $rename: {descricao: "descricaoSite"}
+})
+
+db.produtos.find({}, {
+  _id: 0,
+  nome: 1,
+  descricao: 1,
+  descricaoSite: 1,
+});
 
 // display
 //db.produtos.find();
