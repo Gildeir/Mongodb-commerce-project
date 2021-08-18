@@ -208,11 +208,28 @@ db.produtos.find({}, {
   tags: 1,
 });
 
+db.produtos.countDocuments({
+  nome: {
+    $regex: /Mc/i,
+  },
+});
 
 db.produtos.countDocuments({
   ingredientes: {$size: 4},
 });
 
+db.produtos.createIndex(
+  { descricao: "text" },
+  { default_language: "portuguese" },
+);
+
+db.produtos.countDocuments({
+  $text: {
+    $search: "frango hamburger" },
+});
+
+
+
 
 // display
-db.produtos.find();
+//db.produtos.find();
